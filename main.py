@@ -17,7 +17,7 @@ def generate_telemetry(num_packets=10):
     return packets
 
 
-def add_noise(packet, error_rate=0.02):
+def add_noise(packet, error_rate=0.001):
     packet = list(packet)
     for i in range(len(packet)):
         if random.random() < error_rate:
@@ -44,7 +44,10 @@ if __name__ == "__main__":
         encrypted_stream.append(packet_with_crc)
 
     # Channel: Introduce noise per packet
-    noisy_stream = [add_noise(pkt, error_rate=0.05) for pkt in encrypted_stream]
+    noisy_stream = []
+
+    for pkt in encrypted_stream:
+        noisy_stream.append(add_noise(pkt, error_rate=0.005))
 
     # Receiver: Verify CRC + Decrypt
     for pkt in noisy_stream:
