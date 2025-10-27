@@ -4,16 +4,13 @@ class XORCipher:
         self.key = key
     
     def encrypt(self, plaintext):
-        encryption = []
-        for i, char in enumerate(plaintext):
-            encryption.append(chr(ord(char) ^ ord(self.key[i % len(self.key)])))
-
-        return ''.join(encryption)
+        encrypted = ""
+        for i, c in enumerate(plaintext):
+            encrypted += (chr(ord(c) ^ ord(self.key[i % len(self.key)])))
+        return encrypted
     
     def decrypt(self, ciphertext):
-        decryption = []
-        for i, char in enumerate(ciphertext):
-            decryption.append(chr(ord(char) ^ ord(self.key[i % len(self.key)])))
-
-        return ''.join(decryption)
-    
+        decrypted = ""
+        for i, c in enumerate(ciphertext):
+            decrypted += (chr(ord(c) ^ ord(self.key[i % len(self.key)])))
+        return decrypted

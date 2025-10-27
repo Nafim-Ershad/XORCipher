@@ -1,31 +1,28 @@
-#Basic Implementation of CRC-8 in Python
+# Simple implementation of CRC-8 Checksum calculation and verification.
 
-def crc8(data):
-    crc = 0x00 # Initial CRC value
-    poly = 0x07 # CRC-8 Polynomial -> x^8 + x^2 + x + 1
-
-    for byte in data:
-        crc ^= ord(byte) # XOR operation, similar to subtraction in polynomial division
-        for _ in range(8): # Since using 8-bits
-            
-            if(crc & 0x80): # Checking if MSB is 1, 0x80 = 10000000 in binary
-                crc = (crc << 1) ^ poly # Shifting register is similar to multiplication step
+def crc8(data: str) -> int:
+    crc = 0x00
+    poly = 0x07
+    for char in data:
+        crc ^= ord(char)
+        for _ in range(8):
+            if crc & 0x80:
+                crc = (crc << 1) ^ poly
             else:
-                crc <<= 1 # Just shift left if MSB is 0
-                
-            crc &= 0xFF # Ensure CRC remains within 8-bits        
+                crc <<= 1
+            crc &= 0xFF
     return crc
 
 
-def add_crc8(data):
-    checksum = crc8(data)
-    return f"{data}|{checksum}"
+def add_crc8(packet: str) -> str:
+    checksum = crc8(packet)
+    return f"{packet}|{checksum}"
 
-def verify_crc(packet):
+
+def verify_crc(packet: str) -> bool:
     try:
-        msg, crc_str = packet.rsplit('|', 1)
-        received = int(crc_str)
-
-        return received == crc8(msg)
+        data, crc_str = packet.rsplit('|', 1)
+        received_crc = int(crc_str)
+        return received_crc == crc8(data)
     except:
         return False
