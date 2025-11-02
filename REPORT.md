@@ -76,3 +76,55 @@ If invalid, the packet is flagged as corrupted.
 Each packet was independently encrypted, transmitted through a noisy channel, and verified at the receiver. The simulation was repeated for various and random noise probabilities to determine the packet success rate (fraction of correctly received packets).
 
 ## Result
+![Figure 1: Efffect of Noise on Secure Telemetry Transmission](assets/Figure_1.png)
+*Figure 1: Efffect of Noise on Secure Telemetry Transmission*
+
+**Interpretation**:
+The packet success rate drops sharply even for small noise values (error rate ≈ 0.05).
+This is expected since any single-bit corruption invalidates the CRC.
+
+Beyond error rate ≈ 0.2, the success rate approaches zero, showing CRC’s high sensitivity to noise.
+
+The results closely match the theoretical packet survival probability:
+
+$$
+P_{\text{success}} = (1 - \text{error})^L
+$$
+
+where L is the average packet length.
+
+## Discussion
+
+The simulation confirms that **CRC-8** effectively detects corruption but offers no correction capability.
+In noisy environments, the probability of receiving uncorrupted packets decays exponentially with noise level due to the independence of character errors.
+
+While the **XOR cipher** ensures confidentiality, it provides limited cryptographic strength. However, its simplicity and low computational cost make it suitable for educational purposes and resource-limited embedded systems.
+
+For real-world telemetry systems, stronger algorithms such as **AES-128** or **AES-256** for encryption and **Hamming(n,k)** or **Reed-Solomon** codes for error correction would be recommended.
+
+## Conclusion
+
+This project implemented a complete secure telemetry transmission simulation using **Python**.
+It successfully demonstrated the interplay between:
+
+- Encryption (XOR Cipher for confidentiality)
+- Integrity protection (CRC-8 checksum)
+- Noise simulation (random character corruption)
+
+The system behaves consistently with theoretical expectations—showing exponential decay in packet success rate as channel noise increases.
+This work establishes a foundation for further exploration into lightweight cryptographic and error-control mechanisms for UAV and satellite communication.
+
+## References
+
+- Koopman, P. (2002). 32-bit cyclic redundancy codes for Internet applications. DSN 2002.
+
+- Stallings, W. (2017). Cryptography and Network Security: Principles and Practice. Pearson.
+
+- NASA (2018). Telemetry Systems Engineering Handbook. NASA/TM–2018-219952.
+
+- CRC Polynomial List — RevEng CRC Catalogue (https://reveng.sourceforge.io/crc-catalogue/all.htm
+)
+
+- Wikipedia
+    - CRC (https://en.wikipedia.org/wiki/Cyclic_redundancy_check)
+    - XOR Cipher (https://en.wikipedia.org/wiki/XOR_cipher)

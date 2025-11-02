@@ -69,11 +69,18 @@ if __name__ == "__main__":
         std_success.append(np.std(rates))
         print(f"Noise={n:.2f} → Mean Success={np.mean(rates):.3f}")
 
-    # === PLOT RESULTS ===
-    plt.figure()
-    plt.plot(noise_levels, std_success, marker='o')
+    # Plot mean success rate
+    plt.plot(noise_levels, mean_success, '-o', label="Mean Success Rate")
+
+    # Add shaded region for ±1σ (standard deviation)
+    plt.fill_between(noise_levels,
+                    np.array(mean_success) - np.array(std_success),
+                    np.array(mean_success) + np.array(std_success),
+                    alpha=0.2, label="±1σ deviation")
+
     plt.xlabel("Noise (error probability)")
     plt.ylabel("Packet Success Rate")
     plt.title("Effect of Noise on Secure Telemetry Transmission")
     plt.grid(True)
+    plt.legend()
     plt.show()
