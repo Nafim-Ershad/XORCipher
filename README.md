@@ -39,12 +39,18 @@ git clone https://github.com/Nafim-Ershad/XORCipher.git
 cd XORCipher
 ```
 
-## Run the Simulation
+### 2️⃣ Run the Simulation
 
 ```bash
 python main.py
 ```
 
-## View Results
+### 3️⃣ View Results
 
 The simulation will print noise vs. success rate values in the terminal and generate a graph
+
+## 🧑‍💻 Author
+
+Nafim Ershad Inan <br>
+Military Institute of Science and Technology (MIST) <br>
+📧 inan.nafim1089@outlook.com
