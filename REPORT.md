@@ -1,7 +1,7 @@
 # Secure Telemetry Transmission Simulation using XOR Encryption and CRC-8 Integrity Check
 
 **Author:** Nafim Ershad Inan  
-**Date:** October, 2025  
+**Date:** November, 2025  
 
 ---
 
